@@ -6,8 +6,8 @@ from src import preprocessor
 from src import splitter
 from src import explorer
 from src import trainer
-from src import augmenter
-from src.model import LeNet_model, modified_model
+from src import datagen
+from src.model import LeNet_model
 
 def main():
     num_classes = len(CLASS_NAMES)
@@ -41,11 +41,11 @@ def main():
 
     print(f"After preprocessing - Train: {X_train.shape}  Val: {X_val.shape}  Test: {X_test.shape}")
 
-    model = modified_model(num_classes)
+    model = LeNet_model(num_classes)
+    datagenerator = datagen.create_data_generator()
+    datagen.explore_datagen(datagenerator, X_train, y_train)
     print(model.summary())
-    datagen = augmenter.create_data_generator()
-    augmenter.explore_datagen(datagen, X_train, y_train)
-    trainer.evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test, datagen)
+    trainer.evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test, datagenerator)
 
 if __name__ == "__main__":
     main()
