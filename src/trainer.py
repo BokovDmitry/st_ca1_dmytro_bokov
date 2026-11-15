@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 
 
-def evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test):
-    history = model.fit(X_train, y_train, batch_size=50, epochs=10, validation_data=(X_val, y_val), verbose=1, shuffle=1)
+def evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test, datagen):
+    datagen.fit(X_train)
+    history = model.fit(datagen.flow(X_train, y_train, batch_size=50), epochs=20,  validation_data=(X_val, y_val), verbose=1, shuffle=1)
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
     plt.legend(['training', 'validation'])

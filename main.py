@@ -6,6 +6,7 @@ from src import preprocessor
 from src import splitter
 from src import explorer
 from src import trainer
+from src import augmenter
 from src.model import LeNet_model
 
 def main():
@@ -42,7 +43,9 @@ def main():
 
     model = LeNet_model(num_classes)
     print(model.summary())
-    trainer.evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test)
+    datagen = augmenter.create_data_generator()
+    augmenter.explore_datagen(datagen, X_train, y_train)
+    trainer.evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test, datagen)
 
 if __name__ == "__main__":
     main()
