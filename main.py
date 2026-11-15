@@ -7,7 +7,7 @@ from src import splitter
 from src import explorer
 from src import trainer
 from src import augmenter
-from src.model import LeNet_model
+from src.model import LeNet_model, modified_model
 
 def main():
     num_classes = len(CLASS_NAMES)
@@ -41,7 +41,7 @@ def main():
 
     print(f"After preprocessing - Train: {X_train.shape}  Val: {X_val.shape}  Test: {X_test.shape}")
 
-    model = LeNet_model(num_classes)
+    model = modified_model(num_classes)
     print(model.summary())
     datagen = augmenter.create_data_generator()
     augmenter.explore_datagen(datagen, X_train, y_train)
