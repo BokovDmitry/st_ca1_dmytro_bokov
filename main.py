@@ -7,6 +7,7 @@ from src import splitter
 from src import explorer
 from src import trainer
 from src import augmenter
+from src import image_tester
 from src.model import LeNet_model, modified_model
 
 def main():
@@ -46,6 +47,9 @@ def main():
     datagen = augmenter.create_data_generator()
     augmenter.explore_datagen(datagen, X_train, y_train)
     trainer.evaluate_model(model, X_train, y_train, X_val, y_val, X_test, y_test, datagen)
+    image_tester.test_cifar10_set(model)
+    image_tester.test_cifar100_set(model)
+    image_tester.test_mixed_set(model)
 
 if __name__ == "__main__":
     main()
